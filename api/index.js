@@ -9,4 +9,5 @@ function walkDir(dir, callback) {
 };
 walkDir('./api', function (filePath) {
     console.log(filePath);
+    require(filePath)
 });
