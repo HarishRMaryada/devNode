@@ -1,5 +1,15 @@
-const fs = require('fs'), path = require('path');
+const fs = require('fs');
+const path = require('path');
+
+
+
 function walkDir(dir, callback) {
+    // fs.readdirSync(dir).filter(f =>{
+    //     let dirPath = path.join(dir, f);
+    //     let isDirectory = fs.statSync(dirPath).isDirectory();
+    //     isDirectory ?
+    //        walkDir(dirPath, callback) : callback(path.join(dir, f));
+    // })
     fs.readdirSync(dir).forEach(f => {
         let dirPath = path.join(dir, f);
         let isDirectory = fs.statSync(dirPath).isDirectory();
@@ -7,7 +17,16 @@ function walkDir(dir, callback) {
             walkDir(dirPath, callback) : callback(path.join(dir, f));
     });
 };
-walkDir('./api', function (filePath) {
+walkDir(__dirname, function (filePath) {
     console.log(filePath);
-    require(filePath)
+    let data = require(filePath)
+    console.log(data)
 });
+
+
+
+const controller = (app) =>{
+    const router = require('express').Router();
+    app.use("/",router)
+}
+module.exports = {controller}
